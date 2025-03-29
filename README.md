@@ -19,7 +19,7 @@ A Python project for scanning IP addresses using the VirusTotal API. This tool c
 ## Installation
 1. Clone the repository:
 ```bash
-$ git clone https://github.com/YourUsername/Bulk-VirusTotal-IP-Scanner.git
+$ git clone https://github.com/rahulbhichher/Bulk-VirusTotal-IP-Scanner.git
 $ cd Bulk-VirusTotal-IP-Scanner
 ```
 
@@ -28,10 +28,20 @@ $ cd Bulk-VirusTotal-IP-Scanner
 $ pip install -r requirements.txt
 ```
 
-3. Create a `.env` file with your VirusTotal API key:
+## Setting Up the API Key (.env file)
+1. Create a file named `.env` in the root folder of the project.
+2. Add your VirusTotal API key like this:
 ```
 VT_API_KEY=your_api_key_here
 ```
+
+3. Install `python-dotenv` if you haven't already:
+```bash
+pip install python-dotenv
+```
+
+The `.env` file is used to securely store your API key and keep it out of your codebase.
+
 
 ## Usage
 1. Prepare a CSV file named `input.csv` with a column `ip` containing the IP addresses to scan.
