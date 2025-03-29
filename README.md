@@ -44,7 +44,7 @@ The `.env` file is used to securely store your API key and keep it out of your c
 
 
 ## Usage
-1. Prepare a CSV file named `input.csv` with a column `ip` containing the IP addresses to scan.
+1. Prepare a CSV file named `ANY_NAME_YOU_LIKE_FOR_YOUR_FILE.csv` with a column `ip` containing the IP addresses to scan.
 
 2. Run the script:
 ```bash
@@ -73,5 +73,5 @@ GPL-3.0 License
 Feel free to fork this repository and contribute to the project.
 
 ## Author
-Rahul Bhichher
+Rahul Bhichher 
 
