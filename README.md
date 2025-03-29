@@ -1,77 +1,72 @@
-# Bulk-VirusTotal-IP-Scanner
+# BULK-VIRUSTOTAL-IP-SCANNER
 
-A Python project for scanning IP addresses using the VirusTotal API. This tool collects reputation data, vendor reports, and geolocation details for each IP address.
+## 📌 Description
+BULK-VIRUSTOTAL-IP-SCANNER is a powerful and user-friendly Python tool for scanning a list of IP addresses using the VirusTotal API. It provides comprehensive threat intelligence, reputation data, and detailed analysis reports for each IP address, including vendor-specific detections.
 
-## Features
-- Scans a list of IP addresses from a CSV file.
-- Provides real-time results of IP analysis.
-- Retrieves vendor-specific reports and geolocation information.
-- Outputs results to a CSV file.
+## 🚀 Features
+- **Cross-Platform Compatibility:** Works on Linux, Windows, MacOS, and Google Colab.
+- **Automatic Dependency Installation:** Automatically installs missing packages with progress bars.
+- **Automatic Environment Detection:** Uses appropriate methods to select files based on the platform.
+- **Personalized User Interaction:** Greets the user with their hostname and OS information.
+- **Rate Limit Detection:** Alerts the user if the VirusTotal API rate limit is reached.
+- **Detailed Information Retrieval:** Retrieves ASN, ISP, Network, Country, Reputation, Tags, Whois, Detected Vendors, and Malicious Reports.
+- **CSV Output:** Saves results to `output.csv` with all gathered information.
+- **Real-Time Progress Bar:** Shows progress of IP scanning.
 
-## Requirements
-- Python 3.8+
-- `aiohttp`
-- `nest_asyncio`
-- `pandas`
+## 📂 Requirements
+The following packages are required and will be installed automatically if missing:
 - `requests`
-- `python-dotenv`
+- `pandas`
+- `termcolor`
+- `tqdm`
+- `tabulate`
 
-## Installation
-1. Clone the repository:
+## 📥 Installation
+You can download the code from the GitHub repository and simply run it. Dependencies will be installed automatically.
+
+### Manual Installation (Optional):
 ```bash
-$ git clone https://github.com/rahulbhichher/Bulk-VirusTotal-IP-Scanner.git
-$ cd Bulk-VirusTotal-IP-Scanner
+pip install requests pandas termcolor tqdm tabulate
 ```
 
-2. Install dependencies:
+## 🔧 Usage
+1. **Clone the Repository:**
 ```bash
-$ pip install -r requirements.txt
+git clone https://github.com/yourusername/BULK-VIRUSTOTAL-IP-SCANNER.git
 ```
 
-## Setting Up the API Key (.env file)
-1. Create a file named `.env` in the root folder of the project.
-2. Add your VirusTotal API key like this:
-```
-VT_API_KEY=your_api_key_here
-```
-
-3. Install `python-dotenv` if you haven't already:
+2. **Navigate to the Directory:**
 ```bash
-pip install python-dotenv
+cd BULK-VIRUSTOTAL-IP-SCANNER
 ```
 
-The `.env` file is used to securely store your API key and keep it out of your codebase.
-
-
-## Usage
-1. Prepare a CSV file named `ANY_NAME_YOU_LIKE_FOR_YOUR_FILE.csv` with a column `ip` containing the IP addresses to scan.
-
-2. Run the script:
+3. **Run the Script:**
 ```bash
-$ python virustotal_ip_scanner.py
+python BULK-VIRUSTOTAL-IP-SCANNER.py
 ```
 
-3. Upload your `input.csv` file when prompted.
+4. **Provide your VirusTotal API Key:**
+- Your API key will be saved locally for future use.
 
-4. The results will be saved to `output.csv` and automatically downloaded (if running in Google Colab).
+5. **Upload your IP list CSV file:**
+- The file must contain a column named `ip`.
 
-## Output Format
-The resulting CSV file contains the following columns:
-- `ip` - The scanned IP address.
-- `status` - Whether the IP is marked as `Malicious`, `Harmless`, or `Error`.
-- `malicious_votes` - Number of vendors marking the IP as malicious.
-- `harmless_votes` - Number of vendors marking the IP as harmless.
-- `country` - Country where the IP is located.
-- `region` - Region where the IP is located.
-- `city` - City where the IP is located.
-- `vendor_report` - List of vendors who flagged the IP as malicious.
+6. **View Results:**
+- Results will be saved to `output.csv` in the same directory.
+- For Google Colab users, the file will be automatically downloaded.
 
-## License
-GPL-3.0 License
+## 🌍 Platform-Specific Notes
+- **Linux:** Uses `zenity` for file selection. (If not installed, install via `sudo apt-get install zenity`)
+- **Windows:** Uses `PowerShell` for file selection.
+- **MacOS:** Uses `tkinter` if available.
+- **Google Colab:** Uses `google.colab.files` for file upload and download.
 
-## Contribution
-Feel free to fork this repository and contribute to the project.
+## 🔒 API Key Handling
+- Your VirusTotal API key is securely saved locally in a text file `vt_api_key.txt`.
+- You only need to provide it once unless you want to change it later.
 
-## Author
-Rahul Bhichher 
+## 📜 License
+This project is licensed under the GPL-3.0 License.
 
+## ✍️ Author
+Developed by Rahul Bhichher
