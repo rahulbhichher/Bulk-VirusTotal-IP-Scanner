@@ -8,7 +8,6 @@ import subprocess
 import sys
 import requests
 import pandas as pd
-import time
 import os
 import platform
 import socket
@@ -27,7 +26,13 @@ REQUIRED_PACKAGES = ['requests', 'pandas', 'termcolor', 'tqdm', 'tabulate']
 
 
 def install(package):
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+    try:
+        if sys.platform.startswith('linux') or sys.platform == 'darwin':
+            subprocess.check_call([sys.executable, '-m', 'pip3', 'install', package, '--user', '--quiet'])
+        elif sys.platform.startswith('win'):
+            subprocess.check_call([sys.executable, '-m', 'pip', 'install', package, '--user', '--quiet'])
+    except Exception as e:
+        print(colored(f"Failed to install {package}. Error: {e}", "red"))
 
 
 def check_and_install_packages():
@@ -39,50 +44,16 @@ def check_and_install_packages():
             missing_packages.append(package)
 
     if missing_packages:
-        print(colored("\nMissing packages detected. Installing them now...", "yellow"))
+        print(colored("\nInstalling missing packages...", "yellow"))
         for package in tqdm(missing_packages, desc="Installing Dependencies", ncols=75):
             install(package)
-        print(colored("\nAll required packages have been installed successfully!", "green"))
+        print(colored("\nAll required packages are installed successfully!", "green"))
 
 
-def get_file():
-    platform_name = sys.platform
-    file_path = None
-
-    try:
-        if IN_COLAB:
-            print(colored("\nPlease upload your CSV file...", "yellow"))
-            uploaded = files.upload()
-            if uploaded:
-                file_path = list(uploaded.keys())[0]
-            else:
-                print(colored("No file uploaded. Exiting...", "red"))
-                sys.exit(1)
-
-        elif platform_name.startswith('linux'):
-            try:
-                file_path = subprocess.check_output(['zenity', '--file-selection', '--file-filter=*.csv']).decode('utf-8').strip()
-            except FileNotFoundError:
-                print(colored("Zenity is not installed. Please install it using: sudo apt-get install zenity", "red"))
-                sys.exit(1)
-        elif platform_name.startswith('win'):
-            command = r'powershell -Command "[System.Reflection.Assembly]::LoadWithPartialName(\"System.windows.forms\") | Out-Null; $f = New-Object System.Windows.Forms.OpenFileDialog; $f.Filter = \"CSV Files (*.csv)|*.csv\"; $f.ShowDialog() | Out-Null; $f.FileName"'
-            file_path = subprocess.check_output(command, shell=True).decode('utf-8').strip()
-        elif platform_name.startswith('darwin'):
-            import tkinter as tk
-            from tkinter import filedialog
-            root = tk.Tk()
-            root.withdraw()
-            file_path = filedialog.askopenfilename(title="Select your IP list CSV file", filetypes=[("CSV Files", "*.csv")])
-    except Exception as e:
-        print(colored(f"Error occurred during file selection: {e}", "red"))
-        sys.exit(1)
-
-    if not file_path:
-        print(colored("No file selected. Exiting...", "red"))
-        sys.exit(1)
-
-    return file_path
+def greet_user():
+    hostname = socket.gethostname()
+    os_name = platform.system()
+    print(colored(f"\nHello {hostname}, Welcome to BULK-VIRUSTOTAL-IP-SCANNER running on {os_name}.", "green"))
 
 
 def save_api_key(api_key):
@@ -97,51 +68,36 @@ def load_api_key():
     return None
 
 
-def download_output():
-    if IN_COLAB:
-        try:
-            files.download('output.csv')
-            print(colored("\nOutput file downloaded successfully!", "green"))
-        except Exception as e:
-            print(colored(f"\nError in downloading the file: {e}", "red"))
-
-
-def greet_user():
-    hostname = socket.gethostname()
-    os_name = platform.system()
-    print(colored(f"\nHello {hostname}, Welcome to BULK-VIRUSTOTAL-IP-SCANNER running on {os_name}.", "green"))
-
-
 def check_ip(api_key, ip_address):
     url = f"https://www.virustotal.com/api/v3/ip_addresses/{ip_address}"
     headers = {"x-apikey": api_key}
     response = requests.get(url, headers=headers)
+
     if response.status_code == 429:
-        print(colored("\nAPI Rate Limit Reached! Please try again later or use a different API key.", "red"))
+        print(colored("\nAPI Rate Limit Reached!", "red"))
         return 'RATE_LIMIT_REACHED'
     if response.status_code == 200:
         return response.json()
-    else:
-        return None
+    return None
 
 
 def scan_ip_list(api_key, csv_file):
     df = pd.read_csv(csv_file)
     if 'ip' not in df.columns:
-        print("Error: CSV file must contain a column named 'ip'.")
+        print(colored("Error: The CSV file must contain a column named 'ip'.", "red"))
         return
 
     results = []
-    bad_ips = []
     for ip in tqdm(df['ip'], desc="Scanning IPs", ncols=75):
         response = check_ip(api_key, ip)
         if response == 'RATE_LIMIT_REACHED':
             break
         if response:
             attributes = response.get('data', {}).get('attributes', {})
-            detected_vendors = [vendor for vendor, data in attributes.get('last_analysis_results', {}).items() if data['category'] == 'malicious']
+            last_analysis_results = attributes.get('last_analysis_results', {})
+            detected_vendors = [vendor for vendor, data in last_analysis_results.items() if data['category'] == 'malicious']
 
-            result_data = {
+            results.append({
                 'IP': ip,
                 'ASN': attributes.get('asn', 'Unknown'),
                 'ISP': attributes.get('isp', 'Unknown'),
@@ -152,19 +108,19 @@ def scan_ip_list(api_key, csv_file):
                 'Detected Vendors': detected_vendors,
                 'Tags': attributes.get('tags', []),
                 'Whois': attributes.get('whois', 'Not Available')
-            }
+            })
 
-            if result_data['Malicious Reports'] > 0:
-                bad_ips.append(result_data)
-
-            results.append(result_data)
+    if results:
+        print(colored("\nSummary of Scanned IPs:", "cyan"))
+        print(tabulate(results, headers="keys", tablefmt="grid"))
 
     pd.DataFrame(results).to_csv('output.csv', index=False)
-    download_output()
 
-    if bad_ips:
-        print(colored("\nSummary of IPs with Bad Reputation:", "red"))
-        print(tabulate(bad_ips, headers="keys", tablefmt="grid"))
+    if IN_COLAB:
+        try:
+            files.download('output.csv')
+        except Exception as e:
+            print(colored(f"Error downloading file: {e}", "red"))
 
 
 def main():
@@ -176,9 +132,13 @@ def main():
         save_api_key(api_key)
         print("API key saved successfully!")
 
-    csv_file = get_file()
+    csv_file = input("Enter the full path of your CSV file: ")
+    if not os.path.exists(csv_file):
+        print(colored("File not found. Please try again.", "red"))
+        sys.exit(1)
+
     scan_ip_list(api_key, csv_file)
-    print(colored("\nGoodbye! Thank you for using BULK-VIRUSTOTAL-IP-SCANNER!", "green"))
+    print(colored("\nThank you for using BULK-VIRUSTOTAL-IP-SCANNER!", "green"))
 
 
 if __name__ == "__main__":
