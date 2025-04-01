@@ -1,4 +1,7 @@
 # BULK-VIRUSTOTAL-IP-SCANNER
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
+![License](https://img.shields.io/github/license/rahulbhichher/Bulk-VirusTotal-IP-Scanner)
+![Stars](https://img.shields.io/github/stars/rahulbhichher/Bulk-VirusTotal-IP-Scanner?style=social)
 
 ## 📌 Description
 BULK-VIRUSTOTAL-IP-SCANNER is a powerful and user-friendly Python3 tool for scanning a list of IP addresses using the VirusTotal API. It provides comprehensive threat intelligence, reputation data, and detailed analysis reports for each IP address, including vendor-specific detections.
