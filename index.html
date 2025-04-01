@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Bulk VirusTotal IP Scanner - A cybersecurity tool for SOC analysts to detect and report IP-based threats." />
+  <title>BULK-VIRUSTOTAL-IP-SCANNER</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', monospace;
+      background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+      color: #00ffcc;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      text-align: center;
+      padding: 3rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px #00ffcc;
+    }
+    p {
+      font-size: 1.1rem;
+      max-width: 800px;
+      margin: 1rem auto;
+    }
+    .btn {
+      background: transparent;
+      border: 2px solid #00ffcc;
+      padding: 0.75rem 2rem;
+      margin: 1rem;
+      color: #00ffcc;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 6px;
+      transition: 0.3s ease;
+    }
+    .btn:hover {
+      background: #00ffcc;
+      color: #000;
+    }
+    .animated-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: repeating-linear-gradient(45deg, rgba(0,255,204,0.05), rgba(0,255,204,0.05) 1px, transparent 1px, transparent 20px);
+      animation: move-bg 20s linear infinite;
+    }
+    @keyframes move-bg {
+      0% { background-position: 0 0; }
+      100% { background-position: 1000px 1000px; }
+    }
+    footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="animated-bg"></div>
+  <div class="container">
+    <h1>BULK-VIRUSTOTAL-IP-SCANNER</h1>
+    <p>
+      A cyber defense tool built for SOC analysts, security engineers, and researchers.
+      Scan large volumes of IPs using the VirusTotal API and get deep threat intel at scale. 
+    </p>
+    <a class="btn" href="https://github.com/rahulbhichher/Bulk-VirusTotal-IP-Scanner" target="_blank">🔍 View on GitHub</a>
+    <a class="btn" href="https://github.com/rahulbhichher/Bulk-VirusTotal-IP-Scanner/blob/main/README.md" target="_blank">📖 Read the Docs</a>
+    <footer>
+      ⚠️ This tool is for educational and research purposes only. Use responsibly. Adhere to VirusTotal's Terms of Service.
+    </footer>
+  </div>
+</body>
+</html>
