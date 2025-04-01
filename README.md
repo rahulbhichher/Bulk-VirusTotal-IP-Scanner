@@ -26,7 +26,7 @@ You can download the code from the GitHub repository and simply run it. Dependen
 
 ### Manual Installation (Optional):
 ```bash
-pip install requests pandas termcolor tqdm tabulate
+pip3 install requests pandas termcolor tqdm tabulate
 ```
 
 ## 🔧 Usage
