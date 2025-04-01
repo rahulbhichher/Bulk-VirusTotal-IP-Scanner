@@ -32,7 +32,7 @@ pip install requests pandas termcolor tqdm tabulate
 ## 🔧 Usage
 1. **Clone the Repository:**
 ```bash
-git clone https://github.com/yourusername/BULK-VIRUSTOTAL-IP-SCANNER.git
+git clone https://github.com/rahulbhichher/BULK-VIRUSTOTAL-IP-SCANNER.git
 ```
 
 2. **Navigate to the Directory:**
