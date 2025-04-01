@@ -65,6 +65,14 @@ python3 BULK-VIRUSTOTAL-IP-SCANNER.py
 - Your VirusTotal API key is securely saved locally in a text file `vt_api_key.txt`.
 - You only need to provide it once unless you want to change it later.
 
+## ⚠️ Disclaimer
+**This tool is provided for educational and research purposes only.**
+Please use it responsibly and ethically. By using this tool, you agree to:
+- Use the VirusTotal API strictly in accordance with [VirusTotal’s Terms of Service](https://support.virustotal.com/hc/en-us/articles/115002168385-Terms-of-Service).
+- **Avoid any commercial or corporate use unless you have an enterprise license** from VirusTotal.
+- Respect the privacy and data protection policies when handling IP addresses or scan results.
+The author assumes no responsibility for misuse, abuse, or legal issues arising from the use of this tool.
+
 ## 📜 License
 This project is licensed under the GPL-3.0 License.
 
