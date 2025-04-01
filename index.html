@@ -10,7 +10,7 @@
     body {
       margin: 0;
       font-family: 'Orbitron', monospace;
-      background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+      background-color: #0f0f1c;
       color: #00ffcc;
       overflow-x: hidden;
       display: flex;
@@ -19,11 +19,13 @@
     }
     .container {
       text-align: center;
-      padding: 3rem;
+      padding: 3rem 1rem;
+      max-width: 1200px;
     }
     h1 {
-      font-size: 2.5rem;
-      text-shadow: 0 0 10px #00ffcc;
+      font-size: 3rem;
+      text-shadow: 0 0 20px #00ffcc;
+      margin-bottom: 1rem;
     }
     p {
       font-size: 1.1rem;
@@ -45,37 +47,36 @@
       background: #00ffcc;
       color: #000;
     }
-    .animated-bg {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background: repeating-linear-gradient(45deg, rgba(0,255,204,0.05), rgba(0,255,204,0.05) 1px, transparent 1px, transparent 20px);
-      animation: move-bg 20s linear infinite;
-    }
-    @keyframes move-bg {
-      0% { background-position: 0 0; }
-      100% { background-position: 1000px 1000px; }
+    .hero-img {
+      margin: 2rem auto;
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(0, 255, 204, 0.3);
     }
     footer {
       margin-top: 2rem;
       font-size: 0.9rem;
       color: #aaa;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="animated-bg"></div>
   <div class="container">
     <h1>BULK-VIRUSTOTAL-IP-SCANNER</h1>
     <p>
-      A cyber defense tool built for SOC analysts, security engineers, and researchers.
-      Scan large volumes of IPs using the VirusTotal API and get deep threat intel at scale. 
+      Imagine a futuristic data center under cyber siege, where a hyper-intelligent AI robot scans incoming malicious IPs
+      like a guided missile tracks its target. This is your defense interface.
+    </p>
+    <img src="A_website_homepage_for_BULK-VIRUSTOTAL-IP-SCANNER_.png" alt="Cyber Robot Defense" class="hero-img">
+    <p>
+      This tool empowers SOC analysts, cybersecurity engineers, and researchers to bulk scan IP addresses using VirusTotal,
+      providing rich threat intelligence in seconds.
     </p>
     <a class="btn" href="https://github.com/rahulbhichher/Bulk-VirusTotal-IP-Scanner" target="_blank">🔍 View on GitHub</a>
     <a class="btn" href="https://github.com/rahulbhichher/Bulk-VirusTotal-IP-Scanner/blob/main/README.md" target="_blank">📖 Read the Docs</a>
     <footer>
-      ⚠️ This tool is for educational and research purposes only. Use responsibly. Adhere to VirusTotal's Terms of Service.
+      ⚠️ This tool is for educational and research purposes only. Use responsibly and in accordance with VirusTotal's Terms of Service.
     </footer>
   </div>
 </body>
