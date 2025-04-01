@@ -42,7 +42,7 @@ cd BULK-VIRUSTOTAL-IP-SCANNER
 
 3. **Run the Script:**
 ```bash
-python BULK-VIRUSTOTAL-IP-SCANNER.py
+python3 BULK-VIRUSTOTAL-IP-SCANNER.py
 ```
 
 4. **Provide your VirusTotal API Key:**
